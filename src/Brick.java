@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Brick extends Rectangle2D.Float {
     private Brick c1;
-    public List<Brick> bricks = new LinkedList<>();
+    public static List<Brick> bricks = new LinkedList<>();
     public static List<Integer> list ;
     public Brick(float x, float y){
         super(x, y, 75, 30);

@@ -1,3 +1,5 @@
+import java.awt.*;
+
 class SilnikKulki extends Thread
 {
     Kulka a;
@@ -15,9 +17,17 @@ class SilnikKulki extends Thread
             while(true)
             {
                 a.nextKrok();
+                int l  = Kulka.getLife();
+                if (l == 0){
+                    break;
+                }
                 sleep(15);
+
+
             }
         }
-        catch(InterruptedException e){}
+        catch(InterruptedException e){} catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

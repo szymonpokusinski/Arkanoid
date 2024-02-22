@@ -1,14 +1,16 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.Iterator;
 
 class Kulka extends Ellipse2D.Float {
     Plansza p;
-
     int dx, dy;
     Belka belka = Plansza.b;
+    Menu menu;
     public int score;
-    Kulka(Plansza p, int x, int y, int dx, int dy) {
+    public static int life;
+    Kulka(Plansza p, int x, int y, int dx, int dy, int life) {
         
         this.x = x;
         this.y = y;
@@ -18,8 +20,11 @@ class Kulka extends Ellipse2D.Float {
         this.p = p;
         this.dx = dx;
         this.dy = dy;
+
+
+
     }
-    void nextKrok() throws InterruptedException {
+    void nextKrok() throws InterruptedException, FontFormatException {
         x += dx;
         y += dy;
 
@@ -30,24 +35,31 @@ class Kulka extends Ellipse2D.Float {
             dy = -dy;
         }
         if (intersects(belka)) {
-            //dx = -dx;
             dy = -dy;
         }
         if (getMaxY() == p.getHeight()) {
             System.out.println("Straciłeś zycie");
+            changeLifeNumber();
+            changeScoreNumber(false);
+            life -= 1;
+            System.out.println(life);
             x = 100;
             y = 100;
             dx = 1;
             dy = 1;
             Thread.sleep(3000);
+
         }
-        Iterator<Brick> iterator = p.brick.bricks.iterator();
+        Iterator<Brick> iterator = Brick.bricks.iterator();
         while (iterator.hasNext()) {
             Brick brick = iterator.next();
             if (brick == null){
                 continue;
             }
             else if (intersects(brick)) {
+                changeScoreNumber(true);
+                checkingBrickList();
+                System.out.println(Brick.bricks);
                 iterator.remove();
                 dy = -dy;
             }
@@ -55,6 +67,40 @@ class Kulka extends Ellipse2D.Float {
         p.repaint();
         Toolkit.getDefaultToolkit().sync();
     }
-
+    private void changeLifeNumber (){
+        String numberOfLife = Menu.numberOfLife.getText();
+        int number = Integer.parseInt(numberOfLife);
+        number -= 1;
+        Menu.numberOfLife.setText(String.valueOf(number));
+    }
+    private void changeScoreNumber(Boolean b){
+        String s  = Menu.numberOfScore.getText();
+        int number = Integer.parseInt(s);
+        if (b){
+            number += 10;
+            Menu.numberOfScore.setText(String.valueOf(number));
+        } else {
+            number -= 10;
+            Menu.numberOfScore.setText(String.valueOf(number));
+        }
+    }
+    private void checkingBrickList(){
+        boolean allNull = true;
+        for(Object object: Brick.bricks){
+            if (object != null){
+                allNull = false;
+                break;
+            }
+        }
+        if (allNull){
+            System.out.println("są");
+        } else {
+            System.out.println("nie sa");
+        }
 
     }
+
+    public static int getLife() {
+        return life;
+    }
+}

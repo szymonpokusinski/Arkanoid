@@ -1,24 +1,26 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 class Plansza extends JPanel implements MouseMotionListener
 {
     static Belka b;
-    Kulka a;
+    static Kulka a;
     SilnikKulki s;
     Brick brick = new Brick(0,0);
-    int Punkty;
+    String level;
 
-    Plansza()
+    Plansza(String level)
     {
         super();
+        this.level = level;
+        int numberOfLives = NumberOfLives(level);
         addMouseMotionListener(this);
         b=new Belka(100);
-        a=new Kulka(this,100,100,1,1);
-        s=new SilnikKulki(a);
+        a = new Kulka(this,100,100,1,1, numberOfLives);
+        s = new SilnikKulki(a);
         brick.tworzenieListy();
+        setBackground(Color.decode("#B3B4B6"));
     }
 
     public void paintComponent(Graphics g)
@@ -45,7 +47,20 @@ class Plansza extends JPanel implements MouseMotionListener
     {
 
     }
-    public void obliczaniePunktow(){
+    public int NumberOfLives (String level){
+        int numberOfLives;
+        switch (level) {
+            case "Easy" -> {
+                return numberOfLives = 3;
+            }
+            case "Medium" -> {
+                return numberOfLives = 2;
+            }
+            case "Hard" -> {
+                return numberOfLives = 1;
+            }
+        }
 
+        return numberOfLives = 0;
     }
 }

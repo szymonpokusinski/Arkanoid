@@ -13,8 +13,8 @@ Arkanoid is a simple arcade game based on breaking blocks using a ball bounced o
 - **End game**: The game ends when the player breaks all the blocks or loses all lives, then the game restarts.
 
 # Requirements
--**Java 21**: Make sure you have Java Development Kit (JDK) version 21 installed on your system. You can download and install it from the official Java website: Java SE Downloads.
--**IDE**: Install your favorite Integrated Development Environment (IDE) to be able to run the application.
+- **Java 21**: Make sure you have Java Development Kit (JDK) version 21 installed on your system. You can download and install it from the official Java website: Java SE Downloads.
+- **IDE**: Install your favorite Integrated Development Environment (IDE) to be able to run the application.
 
 # How to run
 - **Clone the repository**
